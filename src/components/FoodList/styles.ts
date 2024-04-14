@@ -7,4 +7,8 @@ export const List = styled.ul`
 
   margin-top: 80px;
   margin-bottom: 120px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
 `

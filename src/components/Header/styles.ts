@@ -20,4 +20,9 @@ export const Titulo = styled.h1`
   line-height: 42px;
   text-align: center;
   margin-top: 140px;
+
+  @media (max-width: 480px) {
+    font-size: 28px;
+    line-height: 25px;
+  }
 `

@@ -9,11 +9,14 @@ export const Card = styled.div`
 `
 export const FoodImg = styled.div`
   width: 100%;
-
   height: 160px;
-
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
+
+  @media (max-width: 767px) {
+    height: 200px;
+  }
 `
 
 export const CardTitle = styled.h3`

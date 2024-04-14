@@ -8,7 +8,7 @@ type Props = {
 
 const FoodCard = ({ title, descricao, image }: Props) => (
   <Card>
-    <FoodImg style={{ backgroundImage: `url(${image})` }}>a</FoodImg>
+    <FoodImg style={{ backgroundImage: `url(${image})` }}></FoodImg>
     <CardTitle>{title}</CardTitle>
     <DescrFood>{descricao}</DescrFood>
     <CardButton>Adicionar ao carrinho</CardButton>
