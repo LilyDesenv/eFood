@@ -1,14 +1,16 @@
 import { Card, CardButton, CardTitle, DescrFood, FoodImg } from './styles'
-import margerita from '../../assets/images/margerita.png'
 
-const FoodCard = () => (
+type Props = {
+  title: string
+  image: string
+  descricao: string
+}
+
+const FoodCard = ({ title, descricao, image }: Props) => (
   <Card>
-    <FoodImg src={margerita} />
-    <CardTitle>Pizza Margerita</CardTitle>
-    <DescrFood>
-      A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-      manjericão fresco e um toque de azeite. Sabor e simplicidade!
-    </DescrFood>
+    <FoodImg style={{ backgroundImage: `url(${image})` }}>a</FoodImg>
+    <CardTitle>{title}</CardTitle>
+    <DescrFood>{descricao}</DescrFood>
     <CardButton>Adicionar ao carrinho</CardButton>
   </Card>
 )

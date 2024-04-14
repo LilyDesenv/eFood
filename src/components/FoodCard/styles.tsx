@@ -7,8 +7,13 @@ export const Card = styled.div`
 
   border: 8px solid ${cores.laranja};
 `
-export const FoodImg = styled.img`
+export const FoodImg = styled.div`
   width: 100%;
+
+  height: 160px;
+
+  background-size: cover;
+  background-position: center;
 `
 
 export const CardTitle = styled.h3`

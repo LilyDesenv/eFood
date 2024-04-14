@@ -29,7 +29,9 @@ export const BannerImg = styled.div`
   padding: 32px;
   background-repeat: no-repeat;
   background-size: cover;
+  /* filter: brightness(0.8); */
 `
+
 export const NameRestaurant = styled.h2`
   color: ${cores.branco};
   font-size: 32px;

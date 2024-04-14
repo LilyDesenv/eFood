@@ -10,4 +10,5 @@ export const TagContainer = styled.div`
   text-align: center;
   padding: 6px 10px;
   display: inline-block;
+  margin-left: 8px;
 `

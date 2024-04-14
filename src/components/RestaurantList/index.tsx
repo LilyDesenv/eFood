@@ -1,20 +1,24 @@
+import Restaurant from '../../models/Restaurant'
 import RestaurantCard from '../RestaurantCard'
 import { RestList } from './styled'
 
-const RestaurantList = () => (
+type Props = {
+  restaurants: Restaurant[]
+}
+
+const RestaurantList = ({ restaurants }: Props) => (
   <RestList>
-    <li>
-      <RestaurantCard></RestaurantCard>
-    </li>
-    <li>
-      <RestaurantCard></RestaurantCard>
-    </li>
-    <li>
-      <RestaurantCard></RestaurantCard>
-    </li>
-    <li>
-      <RestaurantCard></RestaurantCard>
-    </li>
+    {restaurants.map((restaurant) => (
+      <li key={restaurant.id}>
+        <RestaurantCard
+          title={restaurant.title}
+          description={restaurant.descricao}
+          image={restaurant.image}
+          score={restaurant.nota}
+          infos={restaurant.infos}
+        />
+      </li>
+    ))}
   </RestList>
 )
 

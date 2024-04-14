@@ -25,6 +25,7 @@ const Banner = () => (
         </DivGroup>
       </div>
     </BannerContainer>
+
     <BannerImg style={{ backgroundImage: `url(${fundoRest})` }}>
       <div className="container">
         <NameCategory>Italiana</NameCategory>

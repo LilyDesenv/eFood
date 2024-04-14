@@ -1,26 +1,22 @@
+import Food from '../../models/Food'
 import FoodCard from '../FoodCard'
 import { List } from './styles'
 
-const FoodList = () => (
+type Props = {
+  foods: Food[]
+}
+
+const FoodList = ({ foods }: Props) => (
   <List>
-    <li>
-      <FoodCard />
-    </li>
-    <li>
-      <FoodCard />
-    </li>
-    <li>
-      <FoodCard />
-    </li>
-    <li>
-      <FoodCard />
-    </li>
-    <li>
-      <FoodCard />
-    </li>
-    <li>
-      <FoodCard />
-    </li>
+    {foods.map((food) => (
+      <li key={food.id}>
+        <FoodCard
+          title={food.title}
+          descricao={food.descricao}
+          image={food.image}
+        />
+      </li>
+    ))}
   </List>
 )
 
