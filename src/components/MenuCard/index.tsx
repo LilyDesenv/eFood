@@ -71,6 +71,8 @@ const FoodCard = ({ title, descricao, image, portion, price }: Props) => {
               Adicionar ao carrinho - {formataPreco(price)}
             </CardButton>
           </div>
+
+          <button className="closeModal" onClick={() => closeModal()} />
         </ModalContent>
 
         <div className="overlay" onClick={() => closeModal()}></div>

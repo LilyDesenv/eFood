@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
+import fechar from '../../assets/images/fechar.png'
 
 export const Card = styled.div`
   background-color: ${cores.laranja};
@@ -105,6 +106,18 @@ export const ModalContent = styled.div`
 
   ${CardButton} {
     width: 40%;
+  }
+
+  .closeModal {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    background-image: url(${fechar});
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
   }
 
   @media (max-width: 767px) {
