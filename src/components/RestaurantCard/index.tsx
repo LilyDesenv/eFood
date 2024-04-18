@@ -19,29 +19,46 @@ type Props = {
   score: number
   infos: string[]
   description: string
+  id: number
 }
 
-const RestaurantCard = ({ title, image, score, infos, description }: Props) => (
-  <RestCard>
-    <RestImage src={image} />
-    <Infos>
-      {infos.map((info) => (
-        <TagContainer key={info}> {info} </TagContainer>
-      ))}
-    </Infos>
+const RestaurantCard = ({
+  title,
+  image,
+  score,
+  infos,
+  description,
+  id
+}: Props) => {
+  const getDescription = (description: string) => {
+    if (description.length > 278) {
+      return description.slice(0, 275) + '...'
+    }
+    return description
+  }
 
-    <NameInfo>
-      <TituloCard>{title}</TituloCard>
-      <Nota>
-        <TituloCard>{score}</TituloCard>
-        <Star src={star} />
-      </Nota>
-    </NameInfo>
-    <DescricaoCard>{description}</DescricaoCard>
-    <Button>
-      <Link to="/restaurants">Saiba mais</Link>
-    </Button>
-  </RestCard>
-)
+  return (
+    <RestCard>
+      <RestImage src={image} />
+      <Infos>
+        {infos.map((info) => (
+          <TagContainer key={info}> {info} </TagContainer>
+        ))}
+      </Infos>
+
+      <NameInfo>
+        <TituloCard>{title}</TituloCard>
+        <Nota>
+          <TituloCard>{score}</TituloCard>
+          <Star src={star} />
+        </Nota>
+      </NameInfo>
+      <DescricaoCard>{getDescription(description)}</DescricaoCard>
+      <Button>
+        <Link to={`/restaurants/${id}`}>Saiba mais</Link>
+      </Button>
+    </RestCard>
+  )
+}
 
 export default RestaurantCard

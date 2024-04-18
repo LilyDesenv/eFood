@@ -11,4 +11,5 @@ export const TagContainer = styled.div`
   padding: 6px 10px;
   display: inline-block;
   margin-left: 8px;
+  text-transform: capitalize;
 `

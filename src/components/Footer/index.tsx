@@ -10,9 +10,15 @@ const Footer = () => (
   <FooterBar>
     <Logo src={logo} />
     <RedesSociais>
-      <IconRedeSocial src={instagram} />
-      <IconRedeSocial src={facebook} />
-      <IconRedeSocial src={twitter} />
+      <a href="https://www.instagram.com/">
+        <IconRedeSocial src={instagram} />
+      </a>
+      <a href="https://www.facebook.com/">
+        <IconRedeSocial src={facebook} />
+      </a>
+      <a href="https://twitter.com/">
+        <IconRedeSocial src={twitter} />
+      </a>
     </RedesSociais>
     <Descricao>
       A efood é uma plataforma para divulgação de estabelecimentos, a

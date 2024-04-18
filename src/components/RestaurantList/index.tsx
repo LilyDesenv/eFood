@@ -1,25 +1,40 @@
-import Restaurant from '../../models/Restaurant'
+import { Restaurant } from '../../pages/Home'
 import RestaurantCard from '../RestaurantCard'
-import { RestList } from './styled'
+import { RestList } from './styles'
 
 type Props = {
   restaurants: Restaurant[]
 }
 
-const RestaurantList = ({ restaurants }: Props) => (
-  <RestList>
-    {restaurants.map((restaurant) => (
-      <li key={restaurant.id}>
-        <RestaurantCard
-          title={restaurant.title}
-          description={restaurant.descricao}
-          image={restaurant.image}
-          score={restaurant.nota}
-          infos={restaurant.infos}
-        />
-      </li>
-    ))}
-  </RestList>
-)
+const RestaurantList = ({ restaurants }: Props) => {
+  const getInfos = (restaurant: Restaurant) => {
+    const tags = []
+
+    if (restaurant.destacado) {
+      tags.push('Destaque do dia')
+    }
+    if (restaurant.tipo) {
+      tags.push(restaurant.tipo)
+    }
+
+    return tags
+  }
+  return (
+    <RestList>
+      {restaurants.map((r) => (
+        <li key={r.id}>
+          <RestaurantCard
+            title={r.titulo}
+            description={r.descricao}
+            image={r.capa}
+            score={r.avaliacao}
+            infos={getInfos(r)}
+            id={r.id}
+          />
+        </li>
+      ))}
+    </RestList>
+  )
+}
 
 export default RestaurantList

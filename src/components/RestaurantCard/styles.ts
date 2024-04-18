@@ -21,6 +21,8 @@ export const RestCard = styled.div`
 
 export const RestImage = styled.img`
   width: 100%;
+  max-height: 250px;
+  object-fit: cover;
 `
 
 export const Star = styled.img`

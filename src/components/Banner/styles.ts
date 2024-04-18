@@ -41,7 +41,18 @@ export const BannerImg = styled.div`
   padding: 32px;
   background-repeat: no-repeat;
   background-size: cover;
-  /* filter: brightness(0.8); */
+  position: relative;
+
+  &::after {
+    position: absolute;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    content: '';
+    opacity: 0.4;
+  }
 `
 
 export const NameRestaurant = styled.h2`
@@ -49,10 +60,15 @@ export const NameRestaurant = styled.h2`
   font-size: 32px;
   font-weight: 900;
   margin-top: 160px;
+  z-index: 1;
+  position: relative;
 `
 
 export const NameCategory = styled.h2`
   color: ${cores.branco};
   font-size: 32px;
   font-weight: 100;
+  z-index: 1;
+  position: relative;
+  text-transform: capitalize;
 `
