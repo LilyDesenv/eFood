@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Button, cores } from '../../styles'
+import { Button, breakpoints, cores } from '../../styles'
 import { TagContainer } from '../Tag/styles'
 
 export const RestCard = styled.div`
@@ -23,6 +23,10 @@ export const RestImage = styled.img`
   width: 100%;
   max-height: 250px;
   object-fit: cover;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    max-height: 160px;
+  }
 `
 
 export const Star = styled.img`

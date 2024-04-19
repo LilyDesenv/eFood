@@ -10,13 +10,7 @@ const MenuList = ({ menu }: Props) => (
   <List>
     {menu.map((food) => (
       <li key={food.id}>
-        <MenuCard
-          title={food.nome}
-          descricao={food.descricao}
-          image={food.foto}
-          portion={food.porcao}
-          price={food.preco}
-        />
+        <MenuCard menuItem={food} />
       </li>
     ))}
   </List>

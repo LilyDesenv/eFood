@@ -11,6 +11,9 @@ import {
 import logo from '../../assets/images/logo.png'
 import fundoRest from '../../assets/images/trattoriaBanner.png'
 import { Link } from 'react-router-dom'
+import { open } from '../../store/reducers/cart'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 
 type Props = {
   title: string
@@ -19,6 +22,12 @@ type Props = {
 }
 
 const Banner = ({ title, cover, type }: Props) => {
+  const dispatch = useDispatch()
+  const { items } = useSelector((state: RootReducer) => state.cart)
+
+  const openCart = () => {
+    dispatch(open())
+  }
   return (
     <>
       <BannerContainer>
@@ -28,7 +37,9 @@ const Banner = ({ title, cover, type }: Props) => {
             <Link to={'/'}>
               <Logo src={logo} />
             </Link>
-            <TextCart>0 produto(s) no carrinho</TextCart>
+            <TextCart onClick={openCart}>
+              {items.length} produto(s) no carrinho
+            </TextCart>
           </DivGroup>
         </div>
       </BannerContainer>

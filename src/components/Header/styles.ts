@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 import fundoHeader from '../../assets/images/fundoHeader.png'
 
 export const HeaderBar = styled.header`
@@ -21,7 +21,7 @@ export const Titulo = styled.h1`
   text-align: center;
   margin-top: 140px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${breakpoints.tablet}) {
     font-size: 28px;
     line-height: 25px;
   }

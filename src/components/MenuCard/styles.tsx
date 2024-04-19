@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 import fechar from '../../assets/images/fechar.png'
 
 export const Card = styled.div`
@@ -15,7 +15,7 @@ export const FoodImg = styled.div`
   background-repeat: no-repeat;
   background-position: center;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${breakpoints.tablet}) {
     height: 200px;
   }
 `
@@ -120,7 +120,7 @@ export const ModalContent = styled.div`
     cursor: pointer;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: ${breakpoints.tablet}) {
     display: block;
     padding: 16px;
     width: 90%;

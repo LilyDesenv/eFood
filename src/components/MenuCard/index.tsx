@@ -8,13 +8,12 @@ import {
   Modal,
   ModalContent
 } from './styles'
+import { useDispatch } from 'react-redux'
+import { add, open } from '../../store/reducers/cart'
+import { MenuItem } from '../../pages/Home'
 
 type Props = {
-  title: string
-  image: string
-  descricao: string
-  portion: string
-  price: number
+  menuItem: MenuItem
 }
 
 interface ModalState {
@@ -28,10 +27,18 @@ export const formataPreco = (price = 0) => {
   }).format(price)
 }
 
-const FoodCard = ({ title, descricao, image, portion, price }: Props) => {
+const FoodCard = ({ menuItem }: Props) => {
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(add(menuItem))
+    dispatch(open())
+    closeModal()
+  }
+
   const getDescription = (description: string) => {
-    if (description.length > 165) {
-      return description.slice(0, 163) + '...'
+    if (description.length > 155) {
+      return description.slice(0, 152) + '...'
     }
     return description
   }
@@ -47,9 +54,9 @@ const FoodCard = ({ title, descricao, image, portion, price }: Props) => {
   return (
     <>
       <Card>
-        <FoodImg style={{ backgroundImage: `url(${image})` }}></FoodImg>
-        <CardTitle>{title}</CardTitle>
-        <DescrFood>{getDescription(descricao)}</DescrFood>
+        <FoodImg style={{ backgroundImage: `url(${menuItem.foto})` }}></FoodImg>
+        <CardTitle>{menuItem.nome}</CardTitle>
+        <DescrFood>{getDescription(menuItem.descricao)}</DescrFood>
         <CardButton
           onClick={() => {
             setModal({ isVisible: true })
@@ -61,14 +68,14 @@ const FoodCard = ({ title, descricao, image, portion, price }: Props) => {
       <Modal className={modal.isVisible ? 'visivel' : ''}>
         <ModalContent>
           <div>
-            <img src={image} alt="Imagem da comida do menu" />
+            <img src={menuItem.foto} alt="Imagem da comida do menu" />
           </div>
           <div className="infoFood">
-            <CardTitle>{title}</CardTitle>
-            <DescrFood>{descricao}</DescrFood>
-            <DescrFood>Serve: {portion}</DescrFood>
-            <CardButton>
-              Adicionar ao carrinho - {formataPreco(price)}
+            <CardTitle>{menuItem.nome}</CardTitle>
+            <DescrFood>{menuItem.descricao}</DescrFood>
+            <DescrFood>Serve: {menuItem.porcao}</DescrFood>
+            <CardButton onClick={addToCart}>
+              Adicionar ao carrinho - {formataPreco(menuItem.preco)}
             </CardButton>
           </div>
 

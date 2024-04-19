@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import fundo from '../../assets/images/fundoHeader.png'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const BannerContainer = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ export const DivGroup = styled.div`
   padding: 64px 0;
   justify-content: space-between;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${breakpoints.tablet}) {
     grid-template-columns: 1fr;
     padding: 48px 8px 8px 0;
   }
@@ -23,7 +23,7 @@ export const TextTitle = styled.h2`
   font-size: 18px;
   font-weight: 900;
   text-align: left;
-  @media (max-width: 767px) {
+  @media (max-width: ${breakpoints.tablet}) {
     margin-bottom: 16px;
     margin-left: 8px;
   }
@@ -31,7 +31,8 @@ export const TextTitle = styled.h2`
 
 export const TextCart = styled(TextTitle)`
   text-align: right;
-  @media (max-width: 767px) {
+  cursor: pointer;
+  @media (max-width: ${breakpoints.tablet}) {
     margin-top: 16px;
   }
 `

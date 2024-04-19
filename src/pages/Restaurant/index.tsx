@@ -1,19 +1,12 @@
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Banner from '../../components/Banner'
 import MenuList from '../../components/MenuList'
-import { Restaurant as Res } from '../Home'
+import { useGetRestaurantByIdQuery } from '../../services/api'
 
 const Restaurant = () => {
   const { id } = useParams()
 
-  const [restaurant, setRestaurant] = useState<Res>()
-
-  useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((resp) => resp.json())
-      .then((resp) => setRestaurant(resp))
-  }, [id])
+  const { data: restaurant, isLoading } = useGetRestaurantByIdQuery(id!)
 
   if (!restaurant) {
     return <h3>Carregando...</h3>
