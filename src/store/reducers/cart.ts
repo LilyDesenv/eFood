@@ -1,14 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { MenuItem } from '../../pages/Home'
 
 type CartState = {
   items: MenuItem[]
   isOpen: boolean
+  isCartListOpen: boolean
+  isAddressOpen: boolean
+  isPaymentsOpen: boolean
+  isConfirmsOpen: boolean
 }
 
 const initialState: CartState = {
   items: [],
-  isOpen: false
+  isOpen: false,
+  isCartListOpen: false,
+  isAddressOpen: false,
+  isPaymentsOpen: false,
+  isConfirmsOpen: false
 }
 
 const cartSlice = createSlice({
@@ -28,12 +35,50 @@ const cartSlice = createSlice({
     },
     open: (state) => {
       state.isOpen = true
+      state.isCartListOpen = true
     },
     close: (state) => {
       state.isOpen = false
+    },
+    clear: (state) => {
+      state.items = []
+    },
+    showCartList: (state) => {
+      state.isCartListOpen = true
+      state.isAddressOpen = false
+      state.isPaymentsOpen = false
+      state.isConfirmsOpen = false
+    },
+    showAddress: (state) => {
+      state.isCartListOpen = false
+      state.isAddressOpen = true
+      state.isPaymentsOpen = false
+      state.isConfirmsOpen = false
+    },
+    showPayment: (state) => {
+      state.isCartListOpen = false
+      state.isAddressOpen = false
+      state.isPaymentsOpen = true
+      state.isConfirmsOpen = false
+    },
+    showConfirm: (state) => {
+      state.isCartListOpen = false
+      state.isAddressOpen = false
+      state.isPaymentsOpen = false
+      state.isConfirmsOpen = true
     }
   }
 })
 
-export const { add, remove, open, close } = cartSlice.actions
+export const {
+  add,
+  remove,
+  open,
+  close,
+  clear,
+  showCartList,
+  showAddress,
+  showPayment,
+  showConfirm
+} = cartSlice.actions
 export default cartSlice.reducer

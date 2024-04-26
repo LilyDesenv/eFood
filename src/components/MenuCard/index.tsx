@@ -1,16 +1,8 @@
 import { useState } from 'react'
-import {
-  Card,
-  CardButton,
-  CardTitle,
-  DescrFood,
-  FoodImg,
-  Modal,
-  ModalContent
-} from './styles'
+import * as S from './styles'
 import { useDispatch } from 'react-redux'
 import { add, open } from '../../store/reducers/cart'
-import { MenuItem } from '../../pages/Home'
+import { parseToBRL } from '../../utils'
 
 type Props = {
   menuItem: MenuItem
@@ -18,13 +10,6 @@ type Props = {
 
 interface ModalState {
   isVisible: boolean
-}
-
-export const formataPreco = (price = 0) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(price)
 }
 
 const FoodCard = ({ menuItem }: Props) => {
@@ -53,37 +38,39 @@ const FoodCard = ({ menuItem }: Props) => {
 
   return (
     <>
-      <Card>
-        <FoodImg style={{ backgroundImage: `url(${menuItem.foto})` }}></FoodImg>
-        <CardTitle>{menuItem.nome}</CardTitle>
-        <DescrFood>{getDescription(menuItem.descricao)}</DescrFood>
-        <CardButton
+      <S.Card>
+        <S.FoodImg
+          style={{ backgroundImage: `url(${menuItem.foto})` }}
+        ></S.FoodImg>
+        <S.CardTitle>{menuItem.nome}</S.CardTitle>
+        <S.DescrFood>{getDescription(menuItem.descricao)}</S.DescrFood>
+        <S.CardButton
           onClick={() => {
             setModal({ isVisible: true })
           }}
         >
           Adicionar ao carrinho
-        </CardButton>
-      </Card>
-      <Modal className={modal.isVisible ? 'visivel' : ''}>
-        <ModalContent>
+        </S.CardButton>
+      </S.Card>
+      <S.Modal className={modal.isVisible ? 'visivel' : ''}>
+        <S.ModalContent>
           <div>
             <img src={menuItem.foto} alt="Imagem da comida do menu" />
           </div>
           <div className="infoFood">
-            <CardTitle>{menuItem.nome}</CardTitle>
-            <DescrFood>{menuItem.descricao}</DescrFood>
-            <DescrFood>Serve: {menuItem.porcao}</DescrFood>
-            <CardButton onClick={addToCart}>
-              Adicionar ao carrinho - {formataPreco(menuItem.preco)}
-            </CardButton>
+            <S.CardTitle>{menuItem.nome}</S.CardTitle>
+            <S.DescrFood>{menuItem.descricao}</S.DescrFood>
+            <S.DescrFood>Serve: {menuItem.porcao}</S.DescrFood>
+            <S.CardButton onClick={addToCart}>
+              Adicionar ao carrinho - {parseToBRL(menuItem.preco)}
+            </S.CardButton>
           </div>
 
           <button className="closeModal" onClick={() => closeModal()} />
-        </ModalContent>
+        </S.ModalContent>
 
         <div className="overlay" onClick={() => closeModal()}></div>
-      </Modal>
+      </S.Modal>
     </>
   )
 }

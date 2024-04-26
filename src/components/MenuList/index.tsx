@@ -1,4 +1,3 @@
-import { MenuItem } from '../../pages/Home'
 import MenuCard from '../MenuCard'
 import { List } from './styles'
 

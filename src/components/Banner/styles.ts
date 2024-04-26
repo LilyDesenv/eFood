@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import fundo from '../../assets/images/fundoHeader.png'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const BannerContainer = styled.div`
   width: 100%;
@@ -57,7 +57,7 @@ export const BannerImg = styled.div`
 `
 
 export const NameRestaurant = styled.h2`
-  color: ${cores.branco};
+  color: ${colors.white};
   font-size: 32px;
   font-weight: 900;
   margin-top: 160px;
@@ -66,7 +66,7 @@ export const NameRestaurant = styled.h2`
 `
 
 export const NameCategory = styled.h2`
-  color: ${cores.branco};
+  color: ${colors.white};
   font-size: 32px;
   font-weight: 100;
   z-index: 1;

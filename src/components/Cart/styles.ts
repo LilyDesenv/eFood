@@ -1,7 +1,11 @@
 import styled from 'styled-components'
-import { Button, breakpoints, cores } from '../../styles'
+import { Button, breakpoints, colors } from '../../styles'
 import del from '../../assets/images/delete.png'
-import { TagContainer } from '../Tag/styles'
+import { Link } from 'react-router-dom'
+
+type InputGroupProps = {
+  maxwidth?: string
+}
 
 export const Overlay = styled.div`
   position: absolute;
@@ -31,7 +35,7 @@ export const CartContainer = styled.div`
 `
 
 export const Sidebar = styled.aside`
-  background-color: ${cores.laranja};
+  background-color: ${colors.orange};
   z-index: 1;
   padding: 32px 8px 0 8px;
   max-width: 360px;
@@ -48,7 +52,7 @@ export const Prices = styled.p`
   font-weight: 700;
   font-size: 14px;
   line-height: 16px;
-  color: ${cores.bege};
+  color: ${colors.beige};
   margin-bottom: 16px;
   margin-top: 40px;
   display: flex;
@@ -60,7 +64,7 @@ export const CartItem = styled.li`
   display: flex;
   padding: 8px;
   position: relative;
-  background-color: ${cores.bege};
+  background-color: ${colors.beige};
   margin-bottom: 16px;
 
   img {
@@ -72,7 +76,7 @@ export const CartItem = styled.li`
   }
 
   h3 {
-    color: ${cores.laranja};
+    color: ${colors.orange};
     font-weight: bold;
     font-size: 18px;
     font-weight: 900;
@@ -81,7 +85,7 @@ export const CartItem = styled.li`
 
   p {
     display: block;
-    color: ${cores.laranja};
+    color: ${colors.orange};
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
@@ -102,6 +106,84 @@ export const CartItem = styled.li`
 `
 
 export const MsgEmptyCart = styled.li`
-  color: ${cores.bege};
+  color: ${colors.beige};
   text-align: center;
+`
+
+export const OrderComplete = styled.div`
+  width: 100%;
+  display: block;
+  h4 {
+    color: ${colors.beige};
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 18px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: ${colors.beige};
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 16px;
+  }
+
+  .buttonComplete {
+    background-color: ${colors.beige};
+    color: ${colors.orange};
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`
+export const Title = styled.h2`
+  color: ${colors.beige};
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+`
+
+export const InputGroup = styled.div<InputGroupProps>`
+  color: ${colors.beige};
+  padding-bottom: 8px;
+  max-width: ${(props) => props.maxwidth || 'auto'};
+  flex: auto;
+
+  label {
+    color: ${colors.beige};
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+  }
+
+  input {
+    background-color: ${colors.beige};
+    border: 1px solid ${colors.beige};
+    display: block;
+    width: 100%;
+    height: 32px;
+    padding-left: 4px;
+
+    &.error {
+      border: 3px solid #ff0000;
+      background-color: #ffcccc;
+    }
+  }
+`
+export const InputGroupFlex = styled.div`
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  padding-bottom: 8px;
 `

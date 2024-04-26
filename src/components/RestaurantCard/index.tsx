@@ -1,17 +1,10 @@
 import { Link } from 'react-router-dom'
-import {
-  DescricaoCard,
-  Infos,
-  NameInfo,
-  Nota,
-  RestCard,
-  RestImage,
-  Star,
-  TituloCard
-} from './styles'
+
 import star from '../../assets/images/star.png'
+import Tag from '../Tag'
+
+import * as S from './styles'
 import { Button } from '../../styles'
-import { TagContainer } from '../Tag/styles'
 
 type Props = {
   title: string
@@ -38,26 +31,26 @@ const RestaurantCard = ({
   }
 
   return (
-    <RestCard>
-      <RestImage src={image} />
-      <Infos>
+    <S.RestCard>
+      <S.RestImage src={image} />
+      <S.Infos>
         {infos.map((info) => (
-          <TagContainer key={info}> {info} </TagContainer>
+          <Tag key={info}>{info}</Tag>
         ))}
-      </Infos>
+      </S.Infos>
 
-      <NameInfo>
-        <TituloCard>{title}</TituloCard>
-        <Nota>
-          <TituloCard>{score}</TituloCard>
-          <Star src={star} />
-        </Nota>
-      </NameInfo>
-      <DescricaoCard>{getDescription(description)}</DescricaoCard>
+      <S.NameInfo>
+        <S.TituloCard>{title}</S.TituloCard>
+        <S.Nota>
+          <S.TituloCard>{score}</S.TituloCard>
+          <S.Star src={star} />
+        </S.Nota>
+      </S.NameInfo>
+      <S.DescricaoCard>{getDescription(description)}</S.DescricaoCard>
       <Button>
         <Link to={`/restaurants/${id}`}>Saiba mais</Link>
       </Button>
-    </RestCard>
+    </S.RestCard>
   )
 }
 

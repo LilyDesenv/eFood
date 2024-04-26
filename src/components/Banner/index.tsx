@@ -1,19 +1,12 @@
-import { Logo } from '../../styles'
-import {
-  BannerContainer,
-  BannerImg,
-  DivGroup,
-  NameCategory,
-  NameRestaurant,
-  TextCart,
-  TextTitle
-} from './styles'
-import logo from '../../assets/images/logo.png'
-import fundoRest from '../../assets/images/trattoriaBanner.png'
-import { Link } from 'react-router-dom'
-import { open } from '../../store/reducers/cart'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import logo from '../../assets/images/logo.png'
+import { open } from '../../store/reducers/cart'
 import { RootReducer } from '../../store'
+
+import { Logo } from '../../styles'
+import * as S from './styles'
 
 type Props = {
   title: string
@@ -30,26 +23,26 @@ const Banner = ({ title, cover, type }: Props) => {
   }
   return (
     <>
-      <BannerContainer>
+      <S.BannerContainer>
         <div className="container">
-          <DivGroup>
-            <TextTitle>Restaurantes</TextTitle>
+          <S.DivGroup>
+            <S.TextTitle>Restaurantes</S.TextTitle>
             <Link to={'/'}>
               <Logo src={logo} />
             </Link>
-            <TextCart onClick={openCart}>
+            <S.TextCart onClick={openCart}>
               {items.length} produto(s) no carrinho
-            </TextCart>
-          </DivGroup>
+            </S.TextCart>
+          </S.DivGroup>
         </div>
-      </BannerContainer>
+      </S.BannerContainer>
 
-      <BannerImg style={{ backgroundImage: `url(${cover})` }}>
+      <S.BannerImg style={{ backgroundImage: `url(${cover})` }}>
         <div className="container">
-          <NameCategory>{type}</NameCategory>
-          <NameRestaurant>{title}</NameRestaurant>
+          <S.NameCategory>{type}</S.NameCategory>
+          <S.NameRestaurant>{title}</S.NameRestaurant>
         </div>
-      </BannerImg>
+      </S.BannerImg>
     </>
   )
 }

@@ -2,14 +2,19 @@ import { useParams } from 'react-router-dom'
 import Banner from '../../components/Banner'
 import MenuList from '../../components/MenuList'
 import { useGetRestaurantByIdQuery } from '../../services/api'
+import Loader from '../../components/Loader'
+
+type RestaurantParam = {
+  id: string
+}
 
 const Restaurant = () => {
-  const { id } = useParams()
+  const { id } = useParams() as RestaurantParam
 
-  const { data: restaurant, isLoading } = useGetRestaurantByIdQuery(id!)
+  const { data: restaurant } = useGetRestaurantByIdQuery(id)
 
   if (!restaurant) {
-    return <h3>Carregando...</h3>
+    return <Loader />
   }
   const foods = restaurant.cardapio
 

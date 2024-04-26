@@ -1,10 +1,11 @@
 import styled from 'styled-components'
-import { Button, breakpoints, cores } from '../../styles'
+import { Button, breakpoints, colors } from '../../styles'
 import { TagContainer } from '../Tag/styles'
 
 export const RestCard = styled.div`
-  background-color: ${cores.branco};
-  border: 1px solid ${cores.laranja};
+  background-color: ${colors.white};
+  border: 1px solid ${colors.orange};
+  height: 100%;
 
   position: relative;
   ${TagContainer} {
@@ -14,7 +15,7 @@ export const RestCard = styled.div`
   ${Button} {
     a {
       text-decoration: none;
-      color: ${cores.bege};
+      color: ${colors.beige};
     }
   }
 `

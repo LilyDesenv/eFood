@@ -1,11 +1,11 @@
 import styled, { createGlobalStyle } from 'styled-components'
+import close from './assets/images/fechar.png'
 
-export const cores = {
-  begeClaro: '#FFF8F2',
-  laranja: '#E66767',
-  branco: '#fff',
-  amarelo: '#FFB930',
-  bege: '#FFEBD9'
+export const colors = {
+  lightBeige: '#FFF8F2',
+  orange: '#E66767',
+  white: '#fff',
+  beige: '#FFEBD9'
 }
 
 export const breakpoints = {
@@ -21,19 +21,39 @@ export const GlobalCSS = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     list-style: none;
   }
+
   body{
-    background-color: ${cores.begeClaro};
-    color: ${cores.laranja};
+    background-color: ${colors.lightBeige};
+    color: ${colors.orange};
 
-  }
+    .mt8 {
+      margin-top: 8px;
+    }
 
-  .container{
-    max-width: 1024px;
-    width: 100%;
-    margin: 0 auto;
+    .mt24{
+      margin-top: 24px;
+    }
 
-    @media(max-width: ${breakpoints.desktop}){
-      max-width: 80%;
+    .closeModal {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 16px;
+      height: 16px;
+      background-image: url(${close});
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container{
+      max-width: 1024px;
+      width: 100%;
+      margin: 0 auto;
+
+      @media(max-width: ${breakpoints.desktop}){
+        max-width: 80%;
+      }
     }
   }
 `
@@ -47,8 +67,8 @@ export const Logo = styled.img`
 `
 
 export const Button = styled.button`
-  background-color: ${cores.laranja};
-  color: ${cores.bege};
+  background-color: ${colors.orange};
+  color: ${colors.beige};
   margin: 8px;
   padding: 4px 6px;
   font-size: 14px;

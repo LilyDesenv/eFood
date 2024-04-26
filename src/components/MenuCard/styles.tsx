@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
-import fechar from '../../assets/images/fechar.png'
+import { breakpoints, colors } from '../../styles'
 
 export const Card = styled.div`
-  background-color: ${cores.laranja};
-  color: ${cores.bege};
-
-  border: 8px solid ${cores.laranja};
+  background-color: ${colors.orange};
+  color: ${colors.beige};
+  padding: 8px;
+  height: 100%;
+  display: block;
 `
 export const FoodImg = styled.div`
   width: 100%;
@@ -36,8 +36,8 @@ export const DescrFood = styled.p`
 `
 
 export const CardButton = styled.button`
-  background-color: ${cores.bege};
-  color: ${cores.laranja};
+  background-color: ${colors.beige};
+  color: ${colors.orange};
   width: 100%;
   text-align: center;
   font-size: 14px;
@@ -82,8 +82,8 @@ export const ModalContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${cores.laranja};
-  color: ${cores.bege};
+  background-color: ${colors.orange};
+  color: ${colors.beige};
   padding: 32px;
 
   img {
@@ -106,18 +106,6 @@ export const ModalContent = styled.div`
 
   ${CardButton} {
     width: 40%;
-  }
-
-  .closeModal {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 16px;
-    height: 16px;
-    background-image: url(${fechar});
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
   }
 
   @media (max-width: ${breakpoints.tablet}) {

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { breakpoints, cores } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 import fundoHeader from '../../assets/images/fundoHeader.png'
 
 export const HeaderBar = styled.header`
@@ -7,7 +7,7 @@ export const HeaderBar = styled.header`
   background-repeat: no-repeat;
   background-size: cover;
 
-  color: ${cores.laranja};
+  color: ${colors.orange};
 
   width: 100%;
   height: 360px;
