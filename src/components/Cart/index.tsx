@@ -28,20 +28,75 @@ const Cart = () => {
   const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation()
   const dispatch = useDispatch()
 
+  const initialValues = {
+    receiverName: '',
+    address: '',
+    city: '',
+    zipCode: '',
+    number: '',
+    complement: '',
+    cardName: '',
+    cardNumber: '',
+    code: '',
+    cardMonth: '',
+    cardYear: ''
+  }
+
+  const validateAddress = yup.object({
+    receiverName: yup
+      .string()
+      .min(5, 'O nome precisa ter pelo menos 5 caracteres')
+      .required('O campo é obrigatório'),
+    address: yup
+      .string()
+      .min(5, 'O endereço precisa ter pelo menos 5 caracteres')
+      .required('O campo é obrigatório'),
+    city: yup
+      .string()
+      .min(5, 'O nome da cidade precisa ter pelo menos 5 caracteres')
+      .required('O campo é obrigatório'),
+    zipCode: yup
+      .string()
+      .min(10, 'Informe o CEP completo')
+      .max(10, 'Informe o CEP completo')
+      .required('O campo é obrigatório'),
+    number: yup
+      .number()
+      .required('O campo é obrigatório, coloque 0 caso não tenha número'),
+    complement: yup.string()
+  })
+
+  const validatePayments = yup.object({
+    cardName: yup
+      .string()
+      .min(5, 'O nome precisa ter pelo menos 5 caracteres')
+      .when((values, squema) =>
+        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
+      ),
+    cardNumber: yup
+      .string()
+      .when((values, squema) =>
+        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
+      ),
+    code: yup
+      .number()
+      .when((values, squema) =>
+        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
+      ),
+    cardMonth: yup
+      .number()
+      .when((values, squema) =>
+        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
+      ),
+    cardYear: yup
+      .number()
+      .when((values, squema) =>
+        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
+      )
+  })
+
   const form = useFormik({
-    initialValues: {
-      receiverName: '',
-      address: '',
-      city: '',
-      zipCode: '',
-      number: '',
-      complement: '',
-      cardName: '',
-      cardNumber: '',
-      code: '',
-      cardMonth: '',
-      cardYear: ''
-    },
+    initialValues,
     validationSchema: yup.object({
       receiverName: yup
         .string()
@@ -93,34 +148,38 @@ const Cart = () => {
         )
     }),
     onSubmit: (values, { resetForm }) => {
-      purchase({
-        products: items.map((item) => ({
-          id: item.id,
-          price: item.preco as number
-        })),
-        delivery: {
-          receiver: values.receiverName,
-          address: {
-            description: values.address,
-            city: values.city,
-            zipCode: values.zipCode,
-            number: Number(values.number),
-            complement: values.complement
-          }
-        },
-        payment: {
-          card: {
-            name: values.cardName,
-            number: values.cardNumber,
-            code: Number(values.code),
-            expires: {
-              month: Number(values.cardMonth),
-              year: Number(values.cardYear)
+      if (isAddressOpen) {
+        goToPayment()
+      } else {
+        purchase({
+          products: items.map((item) => ({
+            id: item.id,
+            price: item.preco as number
+          })),
+          delivery: {
+            receiver: values.receiverName,
+            address: {
+              description: values.address,
+              city: values.city,
+              zipCode: values.zipCode,
+              number: Number(values.number),
+              complement: values.complement
+            }
+          },
+          payment: {
+            card: {
+              name: values.cardName,
+              number: values.cardNumber,
+              code: Number(values.code),
+              expires: {
+                month: Number(values.cardMonth),
+                year: Number(values.cardYear)
+              }
             }
           }
-        }
-      }),
-        resetForm()
+        }),
+          resetForm()
+      }
     }
   })
 
@@ -278,9 +337,13 @@ const Cart = () => {
                 className={checkInputHasError('complement') ? 'error' : ''}
               />
             </S.InputGroup>
-            <CardButton type="button" onClick={goToPayment} className="mt24">
-              Continuar com o pagamento
-            </CardButton>
+            <Button
+              title="Ir para pagamento"
+              className="mt8"
+              onClick={form.handleSubmit}
+            >
+              Ir para pagamento
+            </Button>
             <CardButton onClick={goToCartList} className="mt8">
               Voltar para o carrinho
             </CardButton>
