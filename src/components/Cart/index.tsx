@@ -42,59 +42,6 @@ const Cart = () => {
     cardYear: ''
   }
 
-  const validateAddress = yup.object({
-    receiverName: yup
-      .string()
-      .min(5, 'O nome precisa ter pelo menos 5 caracteres')
-      .required('O campo é obrigatório'),
-    address: yup
-      .string()
-      .min(5, 'O endereço precisa ter pelo menos 5 caracteres')
-      .required('O campo é obrigatório'),
-    city: yup
-      .string()
-      .min(5, 'O nome da cidade precisa ter pelo menos 5 caracteres')
-      .required('O campo é obrigatório'),
-    zipCode: yup
-      .string()
-      .min(10, 'Informe o CEP completo')
-      .max(10, 'Informe o CEP completo')
-      .required('O campo é obrigatório'),
-    number: yup
-      .number()
-      .required('O campo é obrigatório, coloque 0 caso não tenha número'),
-    complement: yup.string()
-  })
-
-  const validatePayments = yup.object({
-    cardName: yup
-      .string()
-      .min(5, 'O nome precisa ter pelo menos 5 caracteres')
-      .when((values, squema) =>
-        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
-      ),
-    cardNumber: yup
-      .string()
-      .when((values, squema) =>
-        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
-      ),
-    code: yup
-      .number()
-      .when((values, squema) =>
-        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
-      ),
-    cardMonth: yup
-      .number()
-      .when((values, squema) =>
-        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
-      ),
-    cardYear: yup
-      .number()
-      .when((values, squema) =>
-        isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
-      )
-  })
-
   const form = useFormik({
     initialValues,
     validationSchema: yup.object({
