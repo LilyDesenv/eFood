@@ -36,6 +36,9 @@ const cartSlice = createSlice({
     open: (state) => {
       state.isOpen = true
       state.isCartListOpen = true
+      state.isAddressOpen = false
+      state.isPaymentsOpen = false
+      state.isConfirmsOpen = false
     },
     close: (state) => {
       state.isOpen = false

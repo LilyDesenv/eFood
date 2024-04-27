@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { Button, breakpoints, colors } from '../../styles'
 import del from '../../assets/images/delete.png'
-import { Link } from 'react-router-dom'
 
 type InputGroupProps = {
   maxwidth?: string
@@ -31,6 +30,10 @@ export const CartContainer = styled.div`
 
   &.isOpen {
     display: flex;
+  }
+
+  .isHiden {
+    display: none;
   }
 `
 

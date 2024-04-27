@@ -14,6 +14,7 @@ import * as S from './styles'
 import { usePurchaseMutation } from '../../services/api'
 import { useEffect } from 'react'
 import Loader from '../Loader'
+import Button from '../Button'
 
 const Cart = () => {
   const {
@@ -72,31 +73,26 @@ const Cart = () => {
         ),
       cardNumber: yup
         .string()
-        .min(19, 'Informe o número completo do cartão')
-        .max(19, 'Informe o número completo do cartão')
         .when((values, squema) =>
           isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
         ),
       code: yup
         .number()
-        .min(3, 'O CVV deve ter 3 números')
         .when((values, squema) =>
           isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
         ),
       cardMonth: yup
         .number()
-        .min(2, 'O mês precisa ter 2 dígitos')
         .when((values, squema) =>
           isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
         ),
       cardYear: yup
         .number()
-        .min(2, 'O ano preciso ter 2 dígitos')
         .when((values, squema) =>
           isPaymentsOpen ? squema.required('O campo é obrigatório') : squema
         )
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       purchase({
         products: items.map((item) => ({
           id: item.id,
@@ -123,7 +119,8 @@ const Cart = () => {
             }
           }
         }
-      })
+      }),
+        resetForm()
     }
   })
 
@@ -136,34 +133,6 @@ const Cart = () => {
     return hasError
   }
 
-  const checkHasError = (section: string) => {
-    if (section === 'address') {
-      const fieldName = checkInputHasError('receiverName')
-      const fieldAddress = checkInputHasError('address')
-      const fieldCity = checkInputHasError('city')
-      const fieldZipCode = checkInputHasError('zipCode')
-      const fieldNumber = checkInputHasError('number')
-
-      return (
-        fieldName || fieldAddress || fieldCity || fieldZipCode || fieldNumber
-      )
-    } else {
-      const nameCard = checkInputHasError('cardName')
-      const nCard = checkInputHasError('cardNumber')
-      const code = checkInputHasError('code')
-      const month = checkInputHasError('cardMonth')
-      const year = checkInputHasError('cardYear')
-
-      return nameCard || nCard || code || month || year
-    }
-  }
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(r.clear())
-    }
-  }, [isSuccess, dispatch])
-
   const closeCart = () => {
     dispatch(r.close())
   }
@@ -175,81 +144,64 @@ const Cart = () => {
     dispatch(r.showCartList())
   }
   const goToDelivery = () => {
+    form.handleReset
     dispatch(r.showAddress())
   }
 
   const goToPayment = () => {
+    form.validateOnChange
     dispatch(r.showPayment())
   }
 
-  const goToConfirm = () => {
-    form.handleSubmit()
-    const isInvalidAddress = checkHasError('address')
-    const isInvalid = checkHasError('payment')
-
-    if (isInvalid) {
-      alert('verifique as informações do cartão')
-    } else if (isInvalidAddress) {
-      alert('Verifique as informações da entrega')
-    } else {
+  useEffect(() => {
+    if (isSuccess) {
       dispatch(r.showConfirm())
-      form.values.receiverName = ''
-      form.values.address = ''
-      form.values.city = ''
-      form.values.zipCode = ''
-      form.values.number = ''
-      form.values.complement = ''
-      form.values.cardName = ''
-      form.values.cardNumber = ''
-      form.values.code = ''
-      form.values.cardMonth = ''
-      form.values.cardYear = ''
-      form.resetForm
+      dispatch(r.clear())
     }
-  }
+  }, [isSuccess, dispatch])
 
   return (
     <S.CartContainer className={isOpen ? 'isOpen' : ''}>
       <S.Overlay onClick={closeCart} />
       <S.Sidebar>
-        {isCartListOpen ? (
-          <>
-            {items.length > 0 ? (
-              <>
-                <ul>
-                  <>
-                    {items.map((item) => (
-                      <S.CartItem key={item.id}>
-                        <img src={item.foto}></img>
-                        <div>
-                          <h3>{item.nome}</h3>
-                          <p>{parseToBRL(item.preco)}</p>
-                        </div>
-                        <button
-                          onClick={() => removeItemCart(item.id)}
-                          className="delete"
-                          type="button"
-                        />
-                      </S.CartItem>
-                    ))}
-                  </>
-                </ul>
-                <S.Prices>
-                  <div>Valor Total </div>
-                  <span>{parseToBRL(getTotalPrice(items))}</span>
-                </S.Prices>
-                <CardButton onClick={goToDelivery}>
-                  Continuar com a entrega
-                </CardButton>
-              </>
-            ) : (
-              <S.MsgEmptyCart>
-                <p>Carrinho Vazio!</p>
-              </S.MsgEmptyCart>
-            )}
-          </>
-        ) : isAddressOpen ? (
-          <form onSubmit={form.handleSubmit}>
+        <div className={!isCartListOpen ? 'isHiden' : ''}>
+          {items.length > 0 ? (
+            <>
+              <ul>
+                <>
+                  {items.map((item) => (
+                    <S.CartItem key={item.id}>
+                      <img src={item.foto}></img>
+                      <div>
+                        <h3>{item.nome}</h3>
+                        <p>{parseToBRL(item.preco)}</p>
+                      </div>
+                      <button
+                        onClick={() => removeItemCart(item.id)}
+                        className="delete"
+                        type="button"
+                      />
+                    </S.CartItem>
+                  ))}
+                </>
+              </ul>
+              <S.Prices>
+                <div>Valor Total </div>
+                <span>{parseToBRL(getTotalPrice(items))}</span>
+              </S.Prices>
+              <CardButton onClick={goToDelivery}>
+                Continuar com a entrega
+              </CardButton>
+            </>
+          ) : (
+            <S.MsgEmptyCart>
+              <p>Carrinho Vazio!</p>
+            </S.MsgEmptyCart>
+          )}
+        </div>
+
+        <form onSubmit={form.handleSubmit}>
+          <div className={!isAddressOpen ? 'isHiden' : ''}>
             <S.Title>Entrega</S.Title>
             <S.InputGroup>
               <label htmlFor="receiverName">Quem irá receber</label>
@@ -326,15 +278,15 @@ const Cart = () => {
                 className={checkInputHasError('complement') ? 'error' : ''}
               />
             </S.InputGroup>
-            <CardButton onClick={goToPayment} className="mt24">
+            <CardButton type="button" onClick={goToPayment} className="mt24">
               Continuar com o pagamento
             </CardButton>
             <CardButton onClick={goToCartList} className="mt8">
               Voltar para o carrinho
             </CardButton>
-          </form>
-        ) : isPaymentsOpen ? (
-          <form onSubmit={form.handleSubmit}>
+          </div>
+
+          <div className={!isPaymentsOpen ? 'isHiden' : ''}>
             <S.Title>
               Pagamento - Valor a pagar {parseToBRL(getTotalPrice(items))}
             </S.Title>
@@ -406,61 +358,62 @@ const Cart = () => {
                 />
               </S.InputGroup>
             </S.InputGroupFlex>
-            <CardButton
-              type="submit"
+            <Button
               className="mt24"
-              onClick={goToConfirm}
+              onClick={form.handleSubmit}
               disabled={isLoading}
+              title="Finalizar Pagamento"
             >
-              {isLoading ? 'Finalizando o pagamento...' : 'Finalizar Pagamento'}
-            </CardButton>
-            <CardButton className="mt8" onClick={goToDelivery}>
+              {isLoading ? 'Finalizando compra...' : 'Finalizar Compra'}
+            </Button>
+
+            <CardButton type="button" className="mt8" onClick={goToDelivery}>
               Voltar para a edição de endereço
             </CardButton>
-          </form>
-        ) : isConfirmsOpen ? (
-          <S.OrderComplete>
-            {isSuccess && data ? (
-              <>
-                <h4>Pedido Realizado - {data.orderId}</h4>
-                <p>
-                  Estamos felizes em informar que seu pedido já está em processo
-                  de preparação e, em breve, será entregue no endereço
-                  fornecido.
-                </p>
-                <p>
-                  Gostaríamos de ressaltar que nossos entregadores não estão
-                  autorizados a realizar cobranças extras.
-                </p>
-                <p>
-                  Lembre-se da importância de higienizar as mãos após o
-                  recebimento do pedido, garantindo assim sua segurança e
-                  bem-estar durante a refeição.
-                </p>
-                <p>
-                  Esperamos que desfrute de uma deliciosa e agradável
-                  experiência gastronômica. Bom apetite!
-                </p>
-                {/* <CardButton onClick={goToHome} className="mt8">
-                  Concluir
-                </CardButton> */}
-                <Link
-                  to="/"
-                  className="buttonComplete"
-                  onClick={() => closeCart()}
-                >
-                  Concluir
-                </Link>
-              </>
-            ) : (
-              <>
+          </div>
+        </form>
+
+        <>
+          <div className={!isConfirmsOpen ? 'isHiden' : ''}>
+            <>
+              {isSuccess && data ? (
+                <S.OrderComplete>
+                  <>
+                    <h4>Pedido Realizado - {data.orderId}</h4>
+                    <p>
+                      Estamos felizes em informar que seu pedido já está em
+                      processo de preparação e, em breve, será entregue no
+                      endereço fornecido.
+                    </p>
+                    <p>
+                      Gostaríamos de ressaltar que nossos entregadores não estão
+                      autorizados a realizar cobranças extras.
+                    </p>
+                    <p>
+                      Lembre-se da importância de higienizar as mãos após o
+                      recebimento do pedido, garantindo assim sua segurança e
+                      bem-estar durante a refeição.
+                    </p>
+                    <p>
+                      Esperamos que desfrute de uma deliciosa e agradável
+                      experiência gastronômica. Bom apetite!
+                    </p>
+
+                    <Link
+                      to="/"
+                      className="buttonComplete"
+                      onClick={() => closeCart()}
+                    >
+                      Concluir
+                    </Link>
+                  </>
+                </S.OrderComplete>
+              ) : (
                 <Loader />
-              </>
-            )}
-          </S.OrderComplete>
-        ) : (
-          <></>
-        )}
+              )}
+            </>
+          </div>
+        </>
 
         <button className="closeModal" onClick={() => closeCart()} />
       </S.Sidebar>
